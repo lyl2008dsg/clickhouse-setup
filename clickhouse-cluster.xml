@@ -1,0 +1,171 @@
+<yandex>
+    <!-- 集群配置 -->
+    <clickhouse_remote_servers>
+        <!-- 3分片3副本 -->
+        <cluster_3shards_3replicas>
+            <!-- 数据分片1  -->
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <default_database>cluster_shard_1</default_database>
+                    <host>172.16.154.245</host>
+                    <port>9000</port>
+                    <!--<user>default</user>-->
+                    <!--<password>6lYaUiFi</password>-->
+                </replica>
+                <replica>
+                    <default_database>cluster_shard_1</default_database>
+                    <host>172.16.154.246</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <default_database>cluster_shard_1</default_database>
+                    <host>172.16.154.247</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <!-- 数据分片2  -->
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <default_database>cluster_shard_2</default_database>
+                    <host>172.16.154.245</host>
+                    <port> 9000</port>
+                </replica>
+                <replica>
+                    <default_database>cluster_shard_2</default_database>
+                    <host>172.16.154.246</host>
+                    <port> 9000</port>
+                </replica>
+                <replica>
+                    <default_database>cluster_shard_2</default_database>
+                    <host>172.16.154.247</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <!-- 数据分片3  -->
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <default_database>cluster_shard_3</default_database>
+                    <host>172.16.154.245</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <default_database>cluster_shard_3</default_database>
+                    <host>172.16.154.246</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <default_database>cluster_shard_3</default_database>
+                    <host>172.16.154.247</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </cluster_3shards_3replicas>
+
+        <!-- 3分片2副本 -->
+        <cluster_3shards_2replicas>
+            <!-- 数据分片1  -->
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <default_database>testcluster_shard_1</default_database>
+                    <host>172.16.154.245</host>
+                    <port>9000</port>
+                    <!--<user>default</user>-->
+                    <!--<password>6lYaUiFi</password>-->
+                </replica>
+                <replica>
+                    <default_database>testcluster_shard_1</default_database>
+                    <host>172.16.154.246</host>
+                    <port>9000</port>
+                </replica>
+
+            </shard>
+            <!-- 数据分片2  -->
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <default_database>testcluster_shard_2</default_database>
+                    <host>172.16.154.246</host>
+                    <port> 9000</port>
+                </replica>
+                <replica>
+                    <default_database>testcluster_shard_2</default_database>
+                    <host>172.16.154.247</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <!-- 数据分片3  -->
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <default_database>testcluster_shard_3</default_database>
+                    <host>172.16.154.247</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <default_database>testcluster_shard_3</default_database>
+                    <host>172.16.154.245</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </cluster_3shards_2replicas>
+        <!-- 1分片3副本：使用表副本-->
+        <cluster_1shards_3replicas>
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <host>172.16.154.245</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>172.16.154.246</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>172.16.154.247</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </cluster_1shards_3replicas>
+    </clickhouse_remote_servers>
+    <!-- ZK  -->
+    <zookeeper-servers>
+        <node index="1">
+            <host>172.16.154.245</host>
+            <port>2181</port>
+        </node>
+        <node index="2">
+            <host>172.16.154.246</host>
+            <port>2181</port>
+        </node>
+        <node index="3">
+            <host>172.16.154.247</host>
+            <port>2181</port>
+        </node>
+    </zookeeper-servers>
+
+    <!-- 监听网络（貌似重复） -->
+    <networks>
+        <ip>::/0</ip>
+    </networks>
+
+    <!-- 本节点副本名称（这里无用） -->
+    <!--<macros>-->
+        <!--<cluster>cluster_3shards_2replicas</cluster>-->
+        <!--<replica>172.16.154.245</replica>-->
+        <!--<shard>100</shard>-->
+    <!--</macros>-->
+
+    <!-- 数据压缩算法 热数据lZ4 优与 zstd -->
+    <clickhouse_compression>
+        <case>
+            <min_part_size>10000000000</min_part_size>
+            <min_part_size_ratio>0.01</min_part_size_ratio>
+            <method>lz4</method>
+        </case>
+    </clickhouse_compression>
+
+</yandex>
